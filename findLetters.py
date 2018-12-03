@@ -17,7 +17,7 @@ def findLetters(image):
     #im = bw
     #skimage.filters.try_all_threshold(im)
     thresh = skimage.filters.threshold_otsu (im)
-    print(thresh)
+    #print(thresh)
     im = skimage.morphology.opening (im < thresh)
     #im = skimage.morphology.erosion (im, skimage.morphology.square (3))
     cleared = skimage.segmentation.clear_border (im)
