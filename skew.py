@@ -29,7 +29,7 @@ def skew(img):
 
     best_score = max (scores)
     best_angle = angles[scores.index (best_score)]
-    print (best_angle)
+    #print (best_angle)
 
     data = inter.rotate (img, best_angle, reshape=False, order=5)
 

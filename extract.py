@@ -16,7 +16,8 @@ from skimage.feature import canny
 from skimage import data
 import cv2
 from skimage import img_as_ubyte
-
+from skew import skew
+from findLetters import findLetters
 
 print(data.camera().shape)
 test = data.camera()
@@ -84,10 +85,21 @@ for bbox in box:
     minr, minc, maxr, maxc = bbox
     rect = matplotlib.patches.Rectangle((minc, minr), maxc - minc, maxr - minr,
                             fill=False, edgecolor='red', linewidth=2)
-    plt.gca().add_patch(rect)
-    plt.show()
-# 
+    im1 = skew(img[minr:maxr, minc:maxc])
+    try:
+        bboxes, bw = findLetters (im1)
+        plt.gca ().add_patch (rect)
+        print(bboxes.shape[0])
+        plt.show()
+    except:
+        continue
+    #plt.imshow (im1, cmap='gray')
+    #plt.show()
+    # im1[420:460,255:388] im1
+    # im1[407:444,328:465] im2
+    # im1[350:405,330:545] im3
+
+#
 # 
 # plt.imshow(im1)
 
-plt.show()
