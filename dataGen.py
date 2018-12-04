@@ -8,10 +8,10 @@ import skimage.transform
 
 imgs = []
 jj = 0
-for k in range(60):
-    file = '../UFPR/training/track00' + str(k+1).zfill(2) + '/'
+for k in range(90,150):
+    file = '../UFPR/testing/track' + str(k+1).zfill(4) + '/'
     for j in range(30):
-        filename = file + 'track00' + str(k+1).zfill(2) + '[' + str(j+1).zfill(2) + '].'
+        filename = file + 'track' + str(k+1).zfill(4) + '[' + str(j+1).zfill(2) + '].'
         print(filename)
         with open(filename + 'txt', 'r', encoding="utf-8") as f:
             data = f.readlines()
@@ -37,7 +37,7 @@ for k in range(60):
         jj += 1
 imgs = np.array(imgs)
 print(imgs.shape)
-np.save('train.npy',imgs)
+np.save('test.npy',imgs)
 
 
 
