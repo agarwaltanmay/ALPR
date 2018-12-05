@@ -58,6 +58,8 @@ class LeNet(nn.Module):
 
 
 
+
+
 letters = np.array([_ for _ in string.ascii_uppercase[:26]] + [str(_) for _ in range(10)])
 
 
