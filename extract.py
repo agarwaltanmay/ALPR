@@ -18,48 +18,53 @@ import cv2
 from skimage import img_as_ubyte
 from skew import skew
 from findLetters import findLetters
+from LPextract import LPextract
+
+
 
 print(data.camera().shape)
 test = data.camera()
 img = skimage.img_as_float(skimage.io.imread('test3.jpg'))
 im1 = img*255
-image = skimage.color.rgb2gray (im1)
-print(image.shape)
-
-fig, axes = plt.subplots(1, 2, figsize=(15, 6))
-ax = axes.ravel()
-
-edges = canny(image, 1, 1, 200)
-lines = probabilistic_hough_line(edges, threshold=10, line_length=5,
-                                 line_gap=3)
-ax[0].imshow(image, cmap=cm.gray)
-
-
-ax[0].imshow(edges, cmap=cm.gray)
-ax[0].set_title('Canny edges')
-
-ax[1].imshow(edges * 0)
-for line in lines:
-    p0, p1 = line
-    ax[1].plot((p0[0], p1[0]), (p0[1], p1[1]))
-ax[1].set_xlim((0, image.shape[1]))
-ax[1].set_ylim((image.shape[0], 0))
-ax[1].set_title('Probabilistic Hough')
-ax[1].set_axis_off()
-
-plt.tight_layout()
-plt.show()
-
-
-edges = img_as_ubyte(edges)
-#thresh = cv2.adaptiveThreshold(edge, 255, 1, 1, 11, 2)
-_, contours, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-box = []
-for cnt in contours:
-    [x, y, w, h] = cv2.boundingRect(cnt)
-    if w > 100 or h > 100:
-        [x, y, w, h] = cv2.boundingRect(cnt)
-        box.append((y, x, y+h, x+w))
+l = LPextract(im1)
+#
+# image = skimage.color.rgb2gray (im1)
+# print(image.shape)
+#
+# fig, axes = plt.subplots(1, 2, figsize=(15, 6))
+# ax = axes.ravel()
+#
+# edges = canny(image, 1, 1, 200)
+# lines = probabilistic_hough_line(edges, threshold=10, line_length=5,
+#                                  line_gap=3)
+# ax[0].imshow(image, cmap=cm.gray)
+#
+#
+# ax[0].imshow(edges, cmap=cm.gray)
+# ax[0].set_title('Canny edges')
+#
+# ax[1].imshow(edges * 0)
+# for line in lines:
+#     p0, p1 = line
+#     ax[1].plot((p0[0], p1[0]), (p0[1], p1[1]))
+# ax[1].set_xlim((0, image.shape[1]))
+# ax[1].set_ylim((image.shape[0], 0))
+# ax[1].set_title('Probabilistic Hough')
+# ax[1].set_axis_off()
+#
+# plt.tight_layout()
+# plt.show()
+#
+#
+# edges = img_as_ubyte(edges)
+# #thresh = cv2.adaptiveThreshold(edge, 255, 1, 1, 11, 2)
+# _, contours, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+# box = []
+# for cnt in contours:
+#     [x, y, w, h] = cv2.boundingRect(cnt)
+#     if w > 100 or h > 100:
+#         [x, y, w, h] = cv2.boundingRect(cnt)
+#         box.append((y, x, y+h, x+w))
 
 
 
