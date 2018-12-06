@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+
 class Net(nn.Module):
 
     def __init__(self):
@@ -23,5 +24,3 @@ class Net(nn.Module):
         out = self.fc3(out)
         return out
 
-    def name(self):
-        return "Net"

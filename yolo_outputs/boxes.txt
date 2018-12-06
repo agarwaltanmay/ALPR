@@ -1,0 +1,2 @@
+track0142[01].png
+Top = 423, Left = 1079, Bottom = 1041, Right = 1849

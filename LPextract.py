@@ -24,18 +24,24 @@ def LPextract(im):
     
     saved_model = torch.load('./saved_model/trained_model.pt')
     
+    min_val = 1e6
+    lp_img = np.empty((10, 10))
     for bbox in box:
         minr, minc, maxr, maxc = bbox
         crop_im = image[minr:maxr, minc:maxc] / 255.0
-        
-        plt.imshow(crop_im)
-        plt.show()
 
-        crop_im = np.resize(crop_im, (32, 32))
+        crop_im = skimage.transform.resize(crop_im, (32, 32))
         crop_im = torch.from_numpy(crop_im).float()
         crop_im = crop_im.view(-1, 1, 32, 32)
         probs = saved_model(crop_im)
-        print(probs)
+
+        val = np.linalg.norm(probs.item() - 1)
+        if min_val > val:
+            min_val = val
+            lp_img = image[minr:maxr, minc:maxc]
+    
+    plt.imshow(lp_img, cmap='gray')
+    plt.show()
 
     # for bbox in box:
     #     plt.imshow (image)
@@ -45,8 +51,7 @@ def LPextract(im):
     #     plt.gca ().add_patch (rect)
     #     plt.show ()
 
-    LPbox = []
-    return LPbox
+    return lp_img
 
 
 

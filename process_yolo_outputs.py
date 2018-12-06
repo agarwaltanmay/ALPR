@@ -12,7 +12,7 @@ def get_yolo_outputs(path="./yolo_outputs/boxes.txt"):
     bboxes = {}
     boxes = []
     for line in lines:
-        if ".jpg" in line:
+        if ".jpg" in line or ".png" in line:
             if len(boxes) != 0:
                 bboxes[fname] = boxes
             boxes = []
